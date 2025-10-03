@@ -10,7 +10,7 @@ def get_int(mensaje: str, mensaje_error:str, minimo:int , maximo: int, reintento
     
     reintentosActuales = reintentos
     while reintentosActuales != 0:
-        datoUsuario = int(mensaje)
+        datoUsuario = int(input(mensaje))
         if minimo <= datoUsuario <= maximo:
             print("Numero Valido!")
             return datoUsuario
