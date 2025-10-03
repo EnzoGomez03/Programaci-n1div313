@@ -17,7 +17,7 @@ while not (cantIngresos == 10) :
     #INPUTS PARA LOS DATOS DEL EMPLEADO
     nombre = input("Por favor ingrese su nombre: ")
     edad = int(input("Ingrese su edad(debe ser 18 años o más): ")) #(debe ser 18 años o más)
-    genero = input("Por favor ingrese su genero: ") #(Masculino, Femenino, Otro)
+    genero = input("Por favor ingrese su genero: ").lower() #(Masculino, Femenino, Otro)
     tecnologíaElegida = input('Ingrese la tecnologia elegida ("IA", "RV/RA", "IOT"): ') #(IA, RV/RA, IOT)
     
     #MATCH PARA CASO DE GENERO
@@ -51,7 +51,11 @@ porcentajeVotosQueNoFueronParaIA = (notVotosIA / cantIngresos) * 100
 
 #PRINTS DE VOTOS Y LA PERSONA DE MAYOR EDAD
 print(f"El porcentaje de votos por IA es de {porcentajeVotosPorIA}")
+print("======================================")
 print(f"El porcentaje de votos por IOT es de {porcentajeVotosPorIOT}")
+print("======================================")
 print(f"El porcentaje de votos por RV/RA es de {porcentajeVotosPorRVRA}")
+print("======================================")
 print(f"El porcentaje de empleados masculinos, con edad entre 33 y 40 años que no votaron por IA es de {porcentajeVotosQueNoFueronParaIA}")
+print("======================================")
 print(f"El nombre de la persona con mas edad es {nombreMayor}, su edad es de {edadMayor} y voto por la tecnologia de {tecnologíaMayor}")

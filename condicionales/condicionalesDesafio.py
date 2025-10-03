@@ -59,16 +59,23 @@ total = subtotal + iva
 
 
 print(f"Su subtotal de consumo sin bonificaciones ni recargo es de ${subtotalSinNada}") #Ta bien
-
+print("======================================")
 print(f"Su subtotal con bonificaciones o recargos es de ${subtotal}")
+print("======================================")
 
 if casoEspecial:
     print(f" {bonificacion} {casoEspecial}")
 else:
     print(f"{bonificacion}")
     
+print("======================================")
+
 print(f"{recargo}")
+print("======================================")
+
 
 print (f"IVA aplicacion sin bonificaciones ni recargo es del ${iva}")
+
+print("======================================")
 
 print(f"El monto final a pagar es de ${total} ")
