@@ -1,3 +1,6 @@
 import app
+from colorama import init,Fore, Style
+#inicializar colorama
+init(autoreset=True)
 
-app.jugar_piedra_papel_tijera()
+print (" " *50 +Fore.CYAN +"GANADOR  "+ app.jugar_piedra_papel_tijera())

@@ -2,7 +2,8 @@ import funciones as fn
 import random
 import validacion as vl
 from colorama import init, Fore, Style
-
+#inicializar colorama
+init(autoreset=True)
 
 def jugar_piedra_papel_tijera()->str:
     """
@@ -18,13 +19,13 @@ def jugar_piedra_papel_tijera()->str:
     rondasJugadas = 0
     #PRINT DE VISUALES PARA EL JUEGO!
     print(Fore.GREEN + "- " * 100)
-    print(" " * 80  +"BIENVENIDO A PIEDRA, PAPEL O TIJERA")
-    print(Fore.GREEN + "- " * 100 + Style.RESET_ALL)
+    print(" " * 85  +"BIENVENIDO A PIEDRA, PAPEL O TIJERA")
+    print(Fore.GREEN + "- " * 100)
     
     print(Fore.RED + "=====" * 10)
     print("REGLAS DEL JUEGO")
     print("1 PIEDRA, 2 PAPEL, 3 TIJERA")
-    print(Fore.RED + "=====" * 10 + Style.RESET_ALL)
+    print(Fore.RED + "=====" * 10 )
     
     #While juego
     while fn.verifcar_estado_partida(rondasGanadasJugador,rondasGanadasMaquina,rondasJugadas):
@@ -39,10 +40,13 @@ def jugar_piedra_papel_tijera()->str:
             rondasGanadasMaquina += 1
             rondasJugadas += 1
         else:
-            print(Fore.YELLOW + "Punto Para El Jugador!" + Style.RESET_ALL)
+            print(Fore.MAGENTA + "Punto Para El Jugador!" + Style.RESET_ALL)
             rondasGanadasJugador += 1
             rondasJugadas += 1
+        
+        # MOSTRAR ELECCIONES DE AMBOS, JUGADOR Y MAQUINA
         print(f"El jugador eligio {fn.mostrar_elemento(jugador)}")
         print(f"La maquina eligio {fn.mostrar_elemento(maquina)}")
-    
-    return print(f"El GANADOR DE LA PARTIDA ES {fn.verificar_ganador_partida(rondasGanadasJugador,rondasGanadasMaquina)}") 
+        print("_" * 70 )
+        
+    return fn.verificar_ganador_partida(rondasGanadasJugador,rondasGanadasMaquina)

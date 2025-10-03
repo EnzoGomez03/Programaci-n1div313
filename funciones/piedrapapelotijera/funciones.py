@@ -35,16 +35,12 @@ def verifcar_estado_partida(aciertosJugador,aciertosMaquina,rondaActual)->bool:
     """
     
     partida = None
-    if aciertosJugador <= 2:
-        partida = True
-    elif aciertosJugador == 3:
+    if aciertosJugador == 3:
         partida = False
-    elif aciertosMaquina <= 2:
-        partida = True
     elif aciertosMaquina == 3:
         partida = False
     else:
-        partida = False
+        partida = True
     
     return partida
 
