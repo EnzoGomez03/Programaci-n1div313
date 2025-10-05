@@ -52,3 +52,7 @@ def menu()->None:
         elif opcion == "8":
             print(Fore.GREEN + "Saliendo del sistema. ¡Hasta luego!")
             break
+        else:
+            print(Fore.RED +"===" * 20)
+            print(Fore.BLACK +"\nPor favor ingrese solo las opciones del menu!\n")
+            print(Fore.RED + "===" * 20)
