@@ -1,4 +1,5 @@
 import funciones as fn
+import validacion as vl
 from colorama import init, Fore,Style 
 #inicializar colorama
 init(autoreset=True)
@@ -27,16 +28,27 @@ def menu()->None:
         print(Fore.RED + "8.Salir")
         opcion = input("\nELIJA UNA OPCION: ")
         
+        
         if opcion == "1":
             lista = fn.ingresar_datos(lista)
         elif opcion == "2":
-            fn.cantidad_positivos_negativos(lista)
+            if vl.validar_lista_vacia(lista):
+                fn.cantidad_positivos_negativos(lista)
         elif opcion == "3":
-            fn.sumar_numeros_pares(lista)
+            if vl.validar_lista_vacia(lista):
+                fn.sumar_numeros_pares(lista)
         elif opcion == "4":
-            fn.max_numero_impar(lista)
+            if vl.validar_lista_vacia(lista):
+                fn.max_numero_impar(lista)
         elif opcion == "5":
-            fn.mostrar_order_numeros(lista)
+            if vl.validar_lista_vacia(lista):
+                fn.mostrar_orden_numeros(lista)
+        elif opcion == "6":
+            if vl.validar_lista_vacia(lista):
+                fn.mostrar_pares(lista)
+        elif opcion == "7":
+            if vl.validar_lista_vacia(lista):
+                fn.numeros_posiciones_impares(lista)
         elif opcion == "8":
             print(Fore.GREEN + "Saliendo del sistema. ¡Hasta luego!")
             break
