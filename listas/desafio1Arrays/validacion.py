@@ -15,6 +15,7 @@ def validate_number():
         print(Fore.RED +"===" * 20)
         print(Fore.RED + "\n ⚠️  Por favor ingresa un numero entero valido y que este dentro del rango!\n")
         print(Fore.RED +"===" * 20)
+        return validate_number()
 
 def validacion_max_impar(lista):   
     if len(lista) == 0:
