@@ -1,11 +1,12 @@
 import funciones as fn
-import validacion as vl
+import validacionDeRepaso as vl
 from colorama import init, Fore,Style 
 #inicializar colorama
 init(autoreset=True)
 
 
 def menu()->None:
+    
     lista = []
     while True:
         

@@ -1,6 +1,6 @@
 import funciones as fn
 import random
-import validacion as vl
+import validacionDeRepaso as vl
 from colorama import init, Fore, Style
 #inicializar colorama
 init(autoreset=True)

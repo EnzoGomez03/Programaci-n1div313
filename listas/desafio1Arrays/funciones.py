@@ -1,4 +1,4 @@
-import validacion as vl
+import validacionDeRepaso as vl
 
 def ingresar_datos(listaActual):
     """
