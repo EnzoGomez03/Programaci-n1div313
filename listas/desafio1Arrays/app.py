@@ -1,5 +1,5 @@
 import funciones as fn
-import validacionDeRepaso as vl
+import validacion as vl
 from colorama import init, Fore,Style 
 #inicializar colorama
 init(autoreset=True)
@@ -8,6 +8,7 @@ init(autoreset=True)
 def menu()->None:
     
     lista = []
+    vlOpcionUno = False
     while True:
         
         print(Fore.BLUE + "BIENVENIDO AL MENU")
@@ -27,32 +28,28 @@ def menu()->None:
         print(Fore.YELLOW +"7.Listar los numeros en posiciones impares")
         print("___"*20)
         print(Fore.RED + "8.Salir")
-        opcion = input("\nELIJA UNA OPCION: ")
+        opcion = input("\nELIJA UNA OPCION: ").strip()
         
         
         if opcion == "1":
             lista = fn.ingresar_datos(lista)
-        elif opcion == "2":
-            if vl.validar_lista_vacia(lista):
-                fn.cantidad_positivos_negativos(lista)
-        elif opcion == "3":
-            if vl.validar_lista_vacia(lista):
-                fn.sumar_numeros_pares(lista)
-        elif opcion == "4":
-            if vl.validar_lista_vacia(lista):
-                fn.max_numero_impar(lista)
-        elif opcion == "5":
-            if vl.validar_lista_vacia(lista):
-                fn.mostrar_orden_numeros(lista)
-        elif opcion == "6":
-            if vl.validar_lista_vacia(lista):
-                fn.mostrar_pares(lista)
-        elif opcion == "7":
-            if vl.validar_lista_vacia(lista):
-                fn.numeros_posiciones_impares(lista)
+            vlOpcionUno = True
         elif opcion == "8":
             print(Fore.GREEN + "Saliendo del sistema. ¡Hasta luego!")
             break
+        elif vl.validar_lista_vacia(lista) or vlOpcionUno :
+            if opcion == "2":
+                fn.cantidad_positivos_negativos(lista)
+            elif opcion == "3":
+                fn.sumar_numeros_pares(lista)
+            elif opcion == "4":
+                fn.max_numero_impar(lista)
+            elif opcion == "5":
+                fn.mostrar_orden_numeros(lista)
+            elif opcion == "6":
+                fn.mostrar_pares(lista)
+            elif opcion == "7":
+                fn.numeros_posiciones_impares(lista)
         else:
             print(Fore.RED +"===" * 20)
             print(Fore.BLACK +"\nPor favor ingrese solo las opciones del menu!\n")

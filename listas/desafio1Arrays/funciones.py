@@ -1,5 +1,14 @@
-import validacionDeRepaso as vl
+import validacion as vl
+import utilidades as ut
 
+def esperar_limpiar():
+    """
+    PROPOSITO: Indica al usuario si desea continuar.
+    """
+    ut.esperar_tecla()
+    ut.limpiar()
+    
+    
 def ingresar_datos(listaActual):
     """
     PROPOSITO:Permitir al usuario ingresar 10 numeros enteros.
@@ -12,6 +21,7 @@ def ingresar_datos(listaActual):
     vecesIngresado = 10
     if not(len(listaActual) == 0):
         print("Ya ingresaste los datos!.")
+        esperar_limpiar()
         pass
     else:
         while vecesIngresado != 0:
@@ -19,6 +29,7 @@ def ingresar_datos(listaActual):
             listaActual.append(numeroUsuario)
             vecesIngresado -= 1
         print(f"\n\nSu lista de numeros es {listaActual}.\n\n" )
+        esperar_limpiar()
     
     return listaActual
     
@@ -34,7 +45,7 @@ def cantidad_positivos_negativos(listaNumeros):
         else:
             cantidadNegativos += 1
     print(f"\n\nIngresaste {cantidadPositivos} numeros positivos y tambien ingresaste {cantidadNegativos} negativos.\n\n" )
-    
+    esperar_limpiar()
     
 def sumar_numeros_pares(listaNumeros):
     
@@ -48,7 +59,7 @@ def sumar_numeros_pares(listaNumeros):
             listaPar.append(numero)
     sumaTotalDePares = sum(listaPar)
     print(f"\n\n La suma de todos los pares ingresados son {sumaTotalDePares} pares\n\n")
-    
+    esperar_limpiar()
     
 def max_numero_impar(listaNumeros)->int:
     """
@@ -64,7 +75,7 @@ def max_numero_impar(listaNumeros)->int:
             
     numeroMaxImpar = vl.validacion_max_impar(listaInpar)
     print(f"\n\n El maximo numero impar que ingresaste fue {numeroMaxImpar}\n\n")
-    
+    esperar_limpiar()
     
 def mostrar_orden_numeros(listaNumeros):
     """
@@ -75,7 +86,7 @@ def mostrar_orden_numeros(listaNumeros):
     for numero in listaIngresados:
         numeroIngreso += 1
         print(f"El {numeroIngreso + 1}.º numero que ingresaste fue {numero} ")
-        
+    esperar_limpiar()
         
 def mostrar_pares(listaNumeros):
     """
@@ -84,7 +95,8 @@ def mostrar_pares(listaNumeros):
     listaPar = [vl.listar_pares(listaNumeros)]
     for numeroPar in listaPar:
         print(f"Los numeros pares son:{numeroPar}")
-        
+    esperar_limpiar()
+    
 def numeros_posiciones_impares(listaNumeros):
     """
     PROPOSITO: Mostrarle al usuario los numeros que se encuentran en posiciones
@@ -98,3 +110,4 @@ def numeros_posiciones_impares(listaNumeros):
             numerosEnPosicionesImpares.append(listaNumeros[indexNum])
             
     print(f"Los numeros que se encuentran en posiciones impares son: {vl.convertir_lista_int_a_str(numerosEnPosicionesImpares)}")
+    esperar_limpiar()

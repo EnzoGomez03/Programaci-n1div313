@@ -1,5 +1,5 @@
 import random
-import validacionDeRepaso as vl
+import moldes.validacionDeRepaso as vl
 
 def verificar_ganador_ronda(eleccionJugador, eleccionMaquina)->str:
     """
