@@ -1,6 +1,8 @@
 import funciones as fn
 import validacion as vl
+import utilidades as ut
 from colorama import init, Fore,Style 
+import time
 #inicializar colorama
 init(autoreset=True)
 
@@ -11,23 +13,40 @@ def menu()->None:
     vlOpcionUno = False
     while True:
         
-        print(Fore.BLUE + "BIENVENIDO AL MENU")
+        ut.animar_texto("=== BIENVENIDO AL MENU ===", Fore.MAGENTA)
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.GREEN + "1.Ingresar datos")
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.YELLOW + "2.Cantidad Positivos y negativos")
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.YELLOW +"3.Suma de los numeros Pares")
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.YELLOW +"4.Mayor numero impar")
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.YELLOW +"5.Listar numeros ingresados")
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.YELLOW +"6.Listar los numeros pares")
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.YELLOW +"7.Listar los numeros en posiciones impares")
+        time.sleep(0.3)
         print("___"*20)
+        time.sleep(0.3)
         print(Fore.RED + "8.Salir")
+        time.sleep(0.3)
         opcion = input("\nELIJA UNA OPCION: ").strip()
         
         
@@ -37,7 +56,7 @@ def menu()->None:
         elif opcion == "8":
             print(Fore.GREEN + "Saliendo del sistema. ¡Hasta luego!")
             break
-        elif vl.validar_lista_vacia(lista) or vlOpcionUno :
+        elif vl.validar_lista_vacia(lista):
             if opcion == "2":
                 fn.cantidad_positivos_negativos(lista)
             elif opcion == "3":
