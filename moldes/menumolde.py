@@ -2,7 +2,7 @@ from colorama import init, Fore,Style
 import time
 #inicializar colorama
 init(autoreset=True)
-import utlidades as ut
+import moldes.utlidadesMolde as ut
 
 
 def opciones_menu():
