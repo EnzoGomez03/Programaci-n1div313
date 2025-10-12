@@ -117,8 +117,6 @@ def buscar_por_docente():
     for reserva in datos:
         if docenteABuscar == reserva["docente"].lower():
             print(f"ID: {reserva["id"]} | materia: {reserva["materia"]} | fecha: {reserva["fecha"]} | horas_reservadas: {reserva["horas_reservadas"]} | aula: {reserva["aula"]}")
-        else:
-            print("El docente no tiene ninguna reserva hecha!")
 
 
 #======================================= MENU OPCION 8 ========================================
