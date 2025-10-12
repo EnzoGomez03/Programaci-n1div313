@@ -8,7 +8,7 @@ init(autoreset=True)
 
 def menu():
     vlOpcionUno = False
-    lista = []
+    # lista = []
     
     while True:
         #Opciones del Menu
@@ -23,14 +23,15 @@ def menu():
         #Opciones que pudo elegir el usuario
         
         if opcion == "1":
-            lista = fn.cargar_reservas(lista)
+            # lista = fn.cargar_reservas(lista)
+            fn.cargar_reserva()
             vlOpcionUno = True
         elif opcion == "8":
             fn.salir()
             break
         elif vlOpcionUno:
             if opcion =="2":
-                fn.mostrar_reservas(lista)
+                fn.mostrar_reservas()
             elif opcion == "3":
                 fn.buscar_por_docente()
             elif opcion == "4":
