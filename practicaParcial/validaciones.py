@@ -26,7 +26,7 @@ def validar_reservas(claveReserva):
         case "hora":
             horaVl = validar_hora()
             minutosVl = validar_minutos()
-            return (f"{horaVl}:{minutosVl}HS")
+            return (f"{horaVl}:{minutosVl}")
         case "aula":
             aulaVl = validar_aula()
             return aulaVl
