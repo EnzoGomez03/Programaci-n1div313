@@ -60,6 +60,7 @@ def cargar_reservas(reservasList):
     cantReservas = vl.validar_cant_reservas()
     listaReservas = reservasList.copy()
     
+    
     for x in range(cantReservas):
         id = len(listaReservas) + 1
         docente = input("Ingresar nombre docente: ")
@@ -184,7 +185,13 @@ def total_reservas_registradas():
     
     
 def total_horas_reservadas():
-    pass
+    archivo = "reservas.csv"
+    horasTotales = 0
+    with open(archivo,"r", newline="",encoding="utf-8") as e:
+        lector = csv.DictReader(e)
+        for reservas in lector:
+            horasTotales += reservas["horas_reservadas"]
+    print(f"El total de horas entre todas las reservas juntas es de {horasTotales}") #Esto esta mal porque reservas["horas_reservadas"] basicamente tenemos ejemplo 2:30hs
     
 def salir():
     print(Fore.BLACK +"===" * 20)

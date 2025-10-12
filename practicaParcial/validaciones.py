@@ -1,6 +1,11 @@
 import os
 import csv
 
+
+# def validar_nombre():
+#     docente = input("Ingrese nombre del docente: ")
+#     while docente in []
+
 def validar_cant_reservas():
     try:
         reserva = int(input("Ingrese la cantidad de reservas!: "))
