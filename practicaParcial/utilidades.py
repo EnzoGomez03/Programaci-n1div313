@@ -28,3 +28,7 @@ else:  # Linux o Mac
 
 def limpiar():
     os.system("cls" if os.name == "nt" else "clear")
+    
+def esperar_limpiar():
+    esperar_tecla()
+    limpiar()

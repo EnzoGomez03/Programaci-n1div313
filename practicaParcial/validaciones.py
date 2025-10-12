@@ -1,3 +1,6 @@
+import os
+import csv
+
 def validar_cant_reservas():
     try:
         reserva = int(input("Ingrese la cantidad de reservas!: "))
@@ -132,3 +135,42 @@ def validar_aula():
         print("\n=====================")
         return validar_aula()
     
+    
+    
+def validar_archivo(listaReservas):
+    """
+    PROPOSITO: Valida si reservas.csv existe, si existe ve la eleccion del usuario, si no, crea el archivo.
+    
+    """
+    if os.path.exists("reservas.csv"): #Verifica si el archivo existe.
+        print("El archivo ya existe!")
+        eleccionUsuario = input("¿Desea reemplazar los datos existentes o agregar nuevos equipos? [R] o [A]: ")
+        match eleccionUsuario:
+            case "r":
+                crear_archivo_o_remplazar(listaReservas)
+            case "a":
+                agregar_nuevos_equipos(listaReservas)
+    else:
+        crear_archivo_o_remplazar(listaReservas)
+
+
+def crear_archivo_o_remplazar(listaReservas):
+    
+    """
+    PROPOSITO: Crea el archivo, y si en caso de que el usuario seleccion reemplazar, reemplaza el archivo existente por el del usuario.
+    """
+    
+    with open("reservas.csv", "w", newline="") as archivo:
+        writer = csv.DictWriter(archivo, fieldnames=["id", "docente", "materia", "fecha","horas_reservadas", "aula"])
+        writer.writeheader()
+        for reserva in listaReservas:
+            writer.writerow(reserva)
+
+
+def agregar_nuevos_equipos(lista):
+    """
+    PROPOSITO: Agrega al archivo un nuevo equipo.
+    """
+    with open("reservas.csv","a",newline="") as archivo:
+        writer = csv.DictWriter(archivo,fieldnames=["id", "docente", "materia", "fecha","horas_reservadas", "aula"])
+        writer.writerows(lista)

@@ -1,4 +1,5 @@
 import funciones as fn
+import utilidades as ut
 from colorama import init, Fore,Style 
 import time
 #inicializar colorama
@@ -13,6 +14,8 @@ def menu():
         #Opciones del Menu
         fn.opciones_menu()
         opcion = input("\n Elija una opcion: ").strip()
+        
+        #En caso de que el usario no elija una opcion del menu.
         if opcion not in ["1","2","3","4","5","6","7","8"]:
             fn.ingrese_opciones_correctas()
             continue
@@ -29,9 +32,9 @@ def menu():
             if opcion =="2":
                 fn.mostrar_reservas(lista)
             elif opcion == "3":
-                pass
+                fn.buscar_por_docente()
             elif opcion == "4":
-                pass
+                fn.calcular_estadisticas_generales()
             elif opcion == "5":
                 pass
             elif opcion == "6":
@@ -42,6 +45,7 @@ def menu():
             print(Fore.RED +"===" * 20)
             print(Fore.BLACK +"\n ⚠️  Primero tenes que ingresar los datos!\n")
             print(Fore.RED + "===" * 20)
+            ut.esperar_limpiar()
 
 
 
