@@ -260,17 +260,17 @@ def calcular_estadisticas_generales():
         opcion = input("Por favor ingrese una opcion: ")
         
         if opcion =="1":
-            total_reservas_registradas()
+            total_reservas_registradas(archivo)
             ut.esperar_limpiar()
         elif opcion == "2":
-            total_horas_reservadas()
+            total_horas_reservadas(archivo)
             ut.esperar_limpiar()
         elif opcion =="3":
-            promedio_total_horas_por_reserva()
+            promedio_total_horas_por_reserva(archivo)
         elif opcion == "4":
-            pass
+            docente_mas_horas_reservadas(archivo)
         elif opcion =="5":
-            pass
+            dia_con_mas_reserva(archivo)
         if opcion == "6":
             print(Fore.BLACK +"===" * 20)
             ut.animar_texto("Saliendo del submenu.👋 Hasta luego!",Fore.GREEN)
@@ -281,20 +281,20 @@ def calcular_estadisticas_generales():
 
 
 #============================SubMenu Opcion: 1=============================================
-def total_reservas_registradas():
+def total_reservas_registradas(archivo):
     """
     PROPOSITO: Indica al usuario el total de reservas que hay en el archivo actualmente.
     """
-    reservasContadas = reservas_registradas()
+    reservasContadas = reservas_registradas(archivo)
     print(f"El total de reservas actualmente son de: {reservasContadas}")
 
 
 
-def reservas_registradas():
+def reservas_registradas(archivoALeer):
     """
     PROPOSITO: Determina la cantidad de reservas que hay en el archivo.
     """
-    datos = leer_archivo("reservas.csv")
+    datos = leer_archivo(archivoALeer)
     reservasContadas = 0
     for reserva in datos:
         reservasContadas += 1
@@ -302,12 +302,12 @@ def reservas_registradas():
 
 #============================SubMenu Opcion: 2=============================================
 
-def total_horas_reservadas():
+def total_horas_reservadas(archivo):
     """
     PROPOSITO: Indica al usuario las horas entre todas las reservas del archivo.
     """
     
-    minutosTotales = minutos_reservados()
+    minutosTotales = minutos_reservados(archivo)
     horasTotales = minutosTotales // 60
     totalMinutos = minutosTotales % 60
     
@@ -319,12 +319,12 @@ def total_horas_reservadas():
     
 
 
-def minutos_reservados():
+def minutos_reservados(archivoLeer):
     """
     PROPOSITO: Determina la suma de la cantidad de horas pero lo devuelve en minutos totales.
     """
     minutosTotales = 0
-    datos = leer_archivo("reservas.csv")
+    datos = leer_archivo(archivoLeer)
     for reservas in datos:
         horas,minutos = map( int,reservas["horas_reservadas"].split(":") ) #Convierte 2:30 a 2 , 30
         minutosTotales += horas * 60 + minutos
@@ -352,14 +352,14 @@ def leer_archivo(archivo):
 
 #============================SubMenu Opcion: 3 =============================================
 
-def promedio_total_horas_por_reserva():
+def promedio_total_horas_por_reserva(archivoALeer):
     """
     PROPOSITO: Indica el promedio de horas entre todas las reservas hechas.
     """
     #Cargo los datos para hacer el calculo del promedio
-    datos = leer_archivo("reservas.csv")
-    minutosTotales = minutos_reservados()
-    reservasTotales = reservas_registradas()
+    datos = leer_archivo(archivoALeer)
+    minutosTotales = minutos_reservados(archivoALeer)
+    reservasTotales = reservas_registradas(archivoALeer)
     
     #Aca se hace el calculo del promedio de las horas
     promedioHoras = minutosTotales // reservasTotales
@@ -377,5 +377,53 @@ def promedio_total_horas_por_reserva():
 
 #============================SubMenu Opcion: 4 =============================================
 
-def docente_mas_horas_reservadas():
-    pass
+def docente_mas_horas_reservadas(archivoALeer):
+    """
+    PROPOSITO: Indica al usuario el docente con mas horas reservadas.
+    """
+    datos = leer_archivo(archivoALeer)
+    primerDic = datos[0] #Le cargo al primerDic el primer diccionario de los datos del archivo leido.
+    maxHorasDocente = convertir_horas_minutos(primerDic) #Le cargo a maxDocente la tupla de las horas y minutos del primerDice
+    nombreDocenteMax = primerDic["docente"] # Le cargo a nombreDocenteMax el nombre del primerDic
+    
+    for reserva in datos:
+        horasDocenteActual = convertir_horas_minutos(reserva) #Le cargo las horas en una tupla, del docente actual.
+        if maxHorasDocente < horasDocenteActual:
+            maxDocente = horasDocenteActual
+            nombreDocenteMax = reserva["docente"] #Cargo el nombre del docente actual.
+
+    horas,minutos = maxHorasDocente
+
+    print(f"El docente {nombreDocenteMax} tiene el maximo de horas que es {horas}:{minutos}HS.")
+    ut.esperar_limpiar()
+
+
+
+def convertir_horas_minutos(lista):
+    """
+    PROPOSITO: Retorna las horas y minutos en una tupla int, para poder comparar.
+    """
+    horas,minutos = map( int,lista["horas_reservadas"].split(":") )
+    return horas,minutos
+
+
+#============================SubMenu Opcion: 5 =============================================
+
+def dia_con_mas_reserva(archivoALeer):
+    datos = leer_archivo(archivoALeer)     #Hacerlo maniana esta mal!
+    primerDic = datos[0]
+    diaMaxReservas = convertir_solo_dia(primerDic)
+    
+    for reserva in datos:
+        diaActual = convertir_solo_dia(reserva)
+        if diaActual == diaMaxReservas:
+            diaMaxReservas = diaActual
+
+    print(f"El dia con mas reservas fue el dia: {diaMaxReservas}")
+    
+    
+def convertir_solo_dia(lista):
+    dia,mes,anio = map(int, lista["fecha"].split("/"))
+    return dia
+
+dia_con_mas_reserva("reservas.csv")
