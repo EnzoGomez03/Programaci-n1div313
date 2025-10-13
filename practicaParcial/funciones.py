@@ -92,7 +92,12 @@ def opciones_menu():
 
 
 def cargar_reserva():
-    
+    """
+    PROPOSITO: Cargar en el archivo las reservas creadas por el usuario.
+    OBSERVACIONES:
+    -Si el archivo existe, pregunta al usuario si quiere
+    reemplazar lo existente por alguna carga nueva de archivos o agregar una carga nueva de reserva al archivo existente.
+    """
     if os.path.exists("reservas.csv"): #Verifica si el archivo existe.
         print("El archivo ya existe!")
         eleccionUsuario = input("¿Desea reemplazar los datos existentes o agregar nuevos equipos? [R] o [A]: ")
@@ -105,13 +110,15 @@ def cargar_reserva():
         crear_archivo()
     
     print("===" *20)
-    print(Fore.GREEN + "Reservas cargadas!")
+    print(Fore.GREEN + "\nReservas cargadas!\n")
     print("===" *20)
     ut.esperar_limpiar()
 
 
 def crear_archivo():
+    #Se crea el archivo ya que no existe, y se le carga las reservas que el usuario haga.
     reservasList = crear_reserva()
+    
     with open("reservas.csv", "w", newline="") as archivo:
         writer = csv.DictWriter(archivo, fieldnames=["id", "docente", "materia", "fecha","horas_reservadas", "aula"])
         writer.writeheader()
@@ -119,6 +126,7 @@ def crear_archivo():
             writer.writerow(reserva)
 
 def agregar_reserva():
+    #Agrego las reservas creadas por el usuario, sin eliminar las que ya existian.
     reservasList = crear_reserva()
     with open("reservas.csv","a",newline="") as archivo:
         writer = csv.DictWriter(archivo,fieldnames=["id", "docente", "materia", "fecha","horas_reservadas", "aula"])
@@ -140,11 +148,16 @@ def remplazar_archivo():
 
 
 def crear_reserva():
+    #Crea todas las reservas que el usuario quiera, y lo devuelve como una lista de reservas.
+    
+    #listaReservas es para la reserva nueva del cliente.
     listaReservas = []
+    #idReserva es para el len del archivo.
+    idReserva = leer_archivo("reservas.csv")
     cantReservas = vl.validar_cant_reservas()
     
     for x in range(cantReservas):
-        id = len(listaReservas) + 1
+        id = len(idReserva) + 1  #Para que el ID siga sumando en caso de que el archivo exista y tenga reservas!
         docente = input("Ingresar nombre docente: ")
         materia = input("Ingresar materia: ")
         fecha =  vl.validar_reservas("fecha")
@@ -158,8 +171,9 @@ def crear_reserva():
             'horas_reservadas':horasReservadas,
             'aula':aula
         }
-        listaReservas.append(reserva)
-    return listaReservas
+        listaReservas.append(reserva)#Agrego la nueva reserva.
+    
+    return listaReservas #Devuelvo la nueva reserva.
     
 
 #======================================= MENU OPCION 2 ========================================
@@ -191,7 +205,7 @@ def buscar_por_docente():
     for reserva in datos:
         if docenteABuscar == reserva["docente"].lower():
             print(f"ID: {reserva["id"]} | materia: {reserva["materia"]} | fecha: {reserva["fecha"]} | horas_reservadas: {reserva["horas_reservadas"]} | aula: {reserva["aula"]}")
-
+    ut.esperar_limpiar()
 
 #======================================= MENU OPCION 8 ========================================
 def salir():
@@ -234,7 +248,8 @@ def sub_menu():
     print("___"*20)
     time.sleep(0.2)
     print(Fore.RED + "6.Salir del submenu")
-    
+
+
 
 def calcular_estadisticas_generales():
     archivo = "reservas.csv"
@@ -263,6 +278,8 @@ def calcular_estadisticas_generales():
             ut.esperar_limpiar()
             break
 
+
+
 #============================SubMenu Opcion: 1=============================================
 def total_reservas_registradas():
     """
@@ -270,6 +287,7 @@ def total_reservas_registradas():
     """
     reservasContadas = reservas_registradas()
     print(f"El total de reservas actualmente son de: {reservasContadas}")
+
 
 
 def reservas_registradas():
@@ -321,10 +339,13 @@ def leer_archivo(archivo):
     OBSERVACIONES:
     Muy util la verdad, pero solo lee, tal vez pueda probar despues que haga mas cosas dependiendo de que quiero hacer.
     """
-    
-    with open(archivo,"r", newline="",encoding="utf-8") as e:
-        lector = csv.DictReader(e)
-        return list(lector)
+    if not os.path.exists(archivo):
+        # devolver lista vacía si no existe
+        return []
+    else:
+        with open(archivo,"r", newline="",encoding="utf-8") as e:
+            lector = csv.DictReader(e)
+            return list(lector)
 
 
 
