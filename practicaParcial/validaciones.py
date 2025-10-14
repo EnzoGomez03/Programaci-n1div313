@@ -146,7 +146,18 @@ def validar_aula():
         return validar_aula()
     
     
+def validar_opcion_usuario_R_A():
+    opcion = input("¿Desea reemplazar los datos existentes o agregar nuevos equipos? [R] o [A]: ").lower().strip()
     
+    if opcion == "a":
+        return "a"
+    elif opcion == "r":
+        return "r"
+    else:
+        print("Ingrese solo una de las dos opciones! [R] o [A]")
+        validar_opcion_usuario_R_A()
+
+
 # def validar_archivo(listaReservas):
 #     """
 #     PROPOSITO: Valida si reservas.csv existe, si existe ve la eleccion del usuario, si no, crea el archivo.

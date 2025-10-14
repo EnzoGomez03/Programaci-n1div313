@@ -98,16 +98,21 @@ def cargar_reserva():
     -Si el archivo existe, pregunta al usuario si quiere
     reemplazar lo existente por alguna carga nueva de archivos o agregar una carga nueva de reserva al archivo existente.
     """
+    
+    reserva = crear_reserva()
+    
     if os.path.exists("reservas.csv"): #Verifica si el archivo existe.
         print("El archivo ya existe!")
-        eleccionUsuario = input("¿Desea reemplazar los datos existentes o agregar nuevos equipos? [R] o [A]: ")
+        eleccionUsuario = vl.validar_opcion_usuario_R_A()
+        
         match eleccionUsuario:
             case "r":
-                remplazar_archivo()
+                remplazar_archivo(reserva)
             case "a":
-                agregar_reserva()
+                agregar_reserva(reserva)
+            
     else:
-        crear_archivo()
+        crear_archivo(reserva)
     
     print("===" *20)
     print(Fore.GREEN + "\nReservas cargadas!\n")
@@ -115,9 +120,9 @@ def cargar_reserva():
     ut.esperar_limpiar()
 
 
-def crear_archivo():
+def crear_archivo(reservasList):
     #Se crea el archivo ya que no existe, y se le carga las reservas que el usuario haga.
-    reservasList = crear_reserva()
+    # reservasList = crear_reserva()
     
     with open("reservas.csv", "w", newline="") as archivo:
         writer = csv.DictWriter(archivo, fieldnames=["id", "docente", "materia", "fecha","horas_reservadas", "aula"])
@@ -125,24 +130,24 @@ def crear_archivo():
         for reserva in reservasList:
             writer.writerow(reserva)
 
-def agregar_reserva():
+def agregar_reserva(reserva):
     #Agrego las reservas creadas por el usuario, sin eliminar las que ya existian.
-    reservasList = crear_reserva()
+    # reservasList = crear_reserva()
     with open("reservas.csv","a",newline="") as archivo:
         writer = csv.DictWriter(archivo,fieldnames=["id", "docente", "materia", "fecha","horas_reservadas", "aula"])
-        writer.writerows(reservasList)
+        writer.writerows(reserva)
 
 
-def remplazar_archivo():
+def remplazar_archivo(reserva):
     #Llamo a la funcion crear_reserva que crea todas las reservas que el usario quiera.
-    reservasList = crear_reserva()
+    # reservasList = crear_reserva()
     
     #Reemplazo el archivo existente, por el nuevo creado por las reservas del usuario.
     with open("reservas.csv", "w", newline="") as archivo:
         writer = csv.DictWriter(archivo, fieldnames=["id", "docente", "materia", "fecha","horas_reservadas", "aula"])
         writer.writeheader()
-        for reserva in reservasList:
-            writer.writerow(reserva)
+        for reservaRemplaza in reserva:
+            writer.writerow(reservaRemplaza)
     
     
 
@@ -154,17 +159,19 @@ def crear_reserva():
     listaReservas = []
     #idReserva es para el len del archivo.
     idReserva = leer_archivo("reservas.csv")
+    ultimoId = len(idReserva)
     cantReservas = vl.validar_cant_reservas()
     
     for x in range(cantReservas):
-        id = len(idReserva) + 1  #Para que el ID siga sumando en caso de que el archivo exista y tenga reservas!
+        
+        ultimoId += 1 # Por si el archivo no existe, y ingresa tal cantidad de reservas, va iterando por el ultimoId.
         docente = input("Ingresar nombre docente: ")
         materia = input("Ingresar materia: ")
         fecha =  vl.validar_reservas("fecha")
         horasReservadas = vl.validar_reservas("hora")
         aula = vl.validar_reservas("aula")
         reserva = {
-            'id': id,
+            'id': ultimoId,
             'docente':docente,
             'materia':materia,
             'fecha':fecha,
@@ -186,7 +193,7 @@ def mostrar_reservas():
     
     for reserva in datos:
         print(Fore.BLACK +"===" * 40)
-        print(f"Equipo: {datos.index(reserva) + 1} ")
+        print(f"Reservas: {datos.index(reserva) + 1} ")
         for dato in reserva:
             print(f"{dato}: {reserva[dato]} | "  , end=" ")
         print()
@@ -202,9 +209,18 @@ def buscar_por_docente():
     datos = leer_archivo("reservas.csv")
     docenteABuscar = input("Por favor ingrese el nombre del docente: ").lower().strip()
     reservasDocente = []
+    
     for reserva in datos:
         if docenteABuscar == reserva["docente"].lower():
-            print(f"ID: {reserva["id"]} | materia: {reserva["materia"]} | fecha: {reserva["fecha"]} | horas_reservadas: {reserva["horas_reservadas"]} | aula: {reserva["aula"]}")
+            reservasDocente.append(reserva)
+    
+    
+    if len(reservasDocente) == 0:
+        print("El docente" + docenteABuscar + "no tiene reservas hechas.")
+    else:
+        for reservaDoc in reservasDocente:
+            print(f"ID: {reservaDoc["id"]} | materia: {reservaDoc["materia"]} | fecha: {reservaDoc["fecha"]} | horas_reservadas: {reservaDoc["horas_reservadas"]} | aula: {reservaDoc["aula"]}")
+        
     ut.esperar_limpiar()
 
 #======================================= MENU OPCION 8 ========================================
@@ -250,7 +266,7 @@ def sub_menu():
     print(Fore.RED + "6.Salir del submenu")
 
 
-
+#===========================================Submenu opcion usuario=========================
 def calcular_estadisticas_generales():
     archivo = "reservas.csv"
     ut.limpiar()
@@ -270,13 +286,21 @@ def calcular_estadisticas_generales():
         elif opcion == "4":
             docente_mas_horas_reservadas(archivo)
         elif opcion =="5":
-            dia_con_mas_reserva(archivo)
+            # dia_con_mas_reserva(archivo)
+            pass
         if opcion == "6":
             print(Fore.BLACK +"===" * 20)
             ut.animar_texto("Saliendo del submenu.👋 Hasta luego!",Fore.GREEN)
             print(Fore.BLACK +"===" * 20)
             ut.esperar_limpiar()
             break
+        else:
+            print(Fore.RED +"===" * 20)
+            print(Fore.BLACK +"\n ⚠️  Por favor ingrese solo las opciones del SubMenu!!\n")
+            print(Fore.RED + "===" * 20)
+            ut.esperar_tecla()
+            ut.limpiar()
+
 
 
 
@@ -326,7 +350,7 @@ def minutos_reservados(archivoLeer):
     minutosTotales = 0
     datos = leer_archivo(archivoLeer)
     for reservas in datos:
-        horas,minutos = map( int,reservas["horas_reservadas"].split(":") ) #Convierte 2:30 a 2 , 30
+        horas,minutos = convertir_horas_minutos(reservas) #Convierte 2:30 a 2 , 30
         minutosTotales += horas * 60 + minutos
     return minutosTotales
 
@@ -389,7 +413,7 @@ def docente_mas_horas_reservadas(archivoALeer):
     for reserva in datos:
         horasDocenteActual = convertir_horas_minutos(reserva) #Le cargo las horas en una tupla, del docente actual.
         if maxHorasDocente < horasDocenteActual:
-            maxDocente = horasDocenteActual
+            maxHorasDocente = horasDocenteActual  #Tenia maxDocente, pero me habia equivocado era maxHorasDocente 
             nombreDocenteMax = reserva["docente"] #Cargo el nombre del docente actual.
 
     horas,minutos = maxHorasDocente
@@ -408,20 +432,38 @@ def convertir_horas_minutos(lista):
 
 
 #============================SubMenu Opcion: 5 =============================================
-
+#count(x) → devuelve cuántas veces aparece x.
+#Ta mal :c
 def dia_con_mas_reserva(archivoALeer):
     datos = leer_archivo(archivoALeer)     #Hacerlo maniana esta mal!
     primerDic = datos[0]
-    diaMaxReservas = convertir_solo_dia(primerDic)
+    diaMaxActual = convertir_solo_dia(primerDic)
+    # vecesApareceMaxActual = contar_veces_aparece(datos, diaMaxActual)
+    
     
     for reserva in datos:
         diaActual = convertir_solo_dia(reserva)
-        if diaActual == diaMaxReservas:
-            diaMaxReservas = diaActual
+        contadorDiaActual = 0
+        # vecesApareceDiaActual = contar_veces_aparece(datos,diaActual)
+        if diaActual == convertir_solo_dia(reserva):
+            contadorDiaActual += 1
+    print(contadorDiaActual)
+        # if diaActual == diaMaxReservas:
+        #     diaMaxReservas = diaActual
 
-    print(f"El dia con mas reservas fue el dia: {diaMaxReservas}")
+
+    # print(f"El dia con mas reservas fue el dia: {diaMaxReservas}")
     
+# def contar_veces_aparece(datosActuales,dia):
+#     contadorDiaActual = 0
     
+#     for reserva in datosActuales:
+#         comparacionDia = convertir_solo_dia(reserva)
+#         if dia == comparacionDia:
+#             contadorDiaActual += 1
+#     return contadorDiaActual
+
+
 def convertir_solo_dia(lista):
     dia,mes,anio = map(int, lista["fecha"].split("/"))
     return dia
