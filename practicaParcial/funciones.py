@@ -130,6 +130,7 @@ def crear_archivo(reservasList):
         for reserva in reservasList:
             writer.writerow(reserva)
 
+
 def agregar_reserva(reserva):
     #Agrego las reservas creadas por el usuario, sin eliminar las que ya existian.
     # reservasList = crear_reserva()
@@ -452,17 +453,25 @@ def dia_con_mas_reserva(archivoALeer):
         #     diaMaxReservas = diaActual
 
 
-    # print(f"El dia con mas reservas fue el dia: {diaMaxReservas}")
+def dia_con_mas_reserva(archivoALeer):
     
-# def contar_veces_aparece(datosActuales,dia):
-#     contadorDiaActual = 0
+    datos = leer_archivo(archivoALeer)
+    lista_de_dias = guardar_lista_dias(datos)
+    diaMax = lista_de_dias.pop(0)
+    vecesRepiteMax = 0
     
-#     for reserva in datosActuales:
-#         comparacionDia = convertir_solo_dia(reserva)
-#         if dia == comparacionDia:
-#             contadorDiaActual += 1
-#     return contadorDiaActual
+    for dia in lista_de_dias:
+        if diaMax == dia:
+            vecesRepiteMax += 1
 
+
+def guardar_lista_dias(datos):
+    lista_dias = []
+    for reserva in datos:
+        diaAAgregar = convertir_solo_dia(reserva)
+        lista_dias.append(diaAAgregar)
+    
+    return lista_dias
 
 def convertir_solo_dia(lista):
     dia,mes,anio = map(int, lista["fecha"].split("/"))
