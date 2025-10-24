@@ -1,5 +1,9 @@
 import os
 import utilidades as ut
+from colorama import init, Fore,Style 
+#inicializar colorama
+init(autoreset=True)
+
 
 def validar_archivo_existe():
     if os.path.exists("alumnos.csv"): #Verifica si el archivo existe.
@@ -39,7 +43,6 @@ def validar_cant_alumnos():
         print("\n=====================")
         return validar_cant_alumnos()
     
-    
 def validar_nota():
     """
     Proposito: Validar que el usuario ingrese una nota entera y que sea una entre 0 - 10 inclusives.
@@ -60,3 +63,51 @@ def validar_nota():
         print(" ⚠️  Dato invalido!")
         print("\n=====================")
         return validar_nota()
+
+
+def validar_condicion(nota):
+    condicion = "desaprobado"
+    
+    if nota >= 6:
+        condicion = "promocionado"
+    elif nota >= 4:
+        condicion = "aprobado"
+    else:
+        condicion = "desaprobado"
+    return condicion
+
+
+
+
+def pedir_criterio_ord():
+# Pedir criterio de ordenamiento: nombre o nota
+
+    try:
+        criterio = input("Ingrese el criterio de ordenamiento ('nombre' o 'nota'): ").strip().lower()
+        if criterio not in ["nombre", "nota"]:
+            print(Fore.RED + "Criterio inválido. Debe ser 'nombre' o 'nota'.")
+            pedir_criterio_ord()
+        else:
+            return criterio
+    except:
+        print("=====================\n")
+        print(" ⚠️  Dato invalido!")
+        print("\n=====================")
+        pedir_criterio_ord()
+        
+        
+        
+def pedir_tipo_Ord_Asc_Desc():
+    # Pedir orden: ascendente o descendente
+    try:
+        orden = input("Ingrese el orden [ASC] o [DESC]: ").strip().upper()
+        if orden not in ["ASC", "DESC"]:
+            print(Fore.RED + "Orden inválido. Debe ser 'ASC' o 'DESC'.")
+            pedir_tipo_Ord_Asc_Desc()
+        else:
+            return orden
+    except:
+        print("=====================\n")
+        print(" ⚠️  Dato invalido!")
+        print("\n=====================")
+        pedir_tipo_Ord_Asc_Desc()

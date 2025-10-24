@@ -41,12 +41,23 @@ def opciones_menu():
         print(Fore.RED + "8.Salir")
         time.sleep(0.3)
 
+
 def menu():
     
     while True:
         opciones_menu()
         opcion = input("\n Elija una opcion: ").strip()
-        
+
+
+        #En caso de que el usario no elija una opcion del menu.
+        if opcion not in ["1","2","3","4","5","6","7"]:
+            print(Fore.RED +"===" * 20)
+            print(Fore.BLACK +"\n ⚠️  Ingresa una opcion correcta del menu! \n")
+            print(Fore.RED + "===" * 20)
+            ut.esperar_limpiar()
+            menu()
+
+
         if opcion == "1":
             pass
         elif opcion =="2":

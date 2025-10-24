@@ -44,22 +44,18 @@ def opciones_menu():
 
 #==============================Opcion 1 menu==================
 
-def cargar_datos_estudiantes():
+def cargar_datos_estudiantes(opcionUsuarioArchivo):
     datosEstudiantes = crear_datos_estudiantes() #Cargo los datos de los estudiantes!
     
-    if os.path.exists("alumnos.csv"): #Verifica si el archivo existe.
-        ut.mensaje_deteccion_archivo()
-        eleccionUsuario = vl.validar_opcion_usuario_R_A()
-        
-        match eleccionUsuario:
-            case "r":
-                remplazar_archivo_de_alumnos(datosEstudiantes)
-            case "a":
-                agregar_datos_alumnos(datosEstudiantes)
-            
-    else:
-        crear_archivo(datosEstudiantes)
-    
+    match opcionUsuarioArchivo:
+        case "r":
+            remplazar_archivo_de_alumnos(datosEstudiantes)
+        case "a":
+            agregar_datos_alumnos(datosEstudiantes)
+        case "c":
+            crear_archivo(datosEstudiantes)
+
+
     print("===" *20)
     print(Fore.GREEN + "\n Datos de los alumnos cargados!\n")
     print("===" *20)
@@ -236,12 +232,27 @@ def nota_mas_alta_y_mas_baja(archivoALeer):
     notas = notas_del_curso(datosAlumnos)
     notaMasAlta = max(notas)
     notaMasBaja = min(notas)
+    alumnoNotaMasAlta = buscar_alumno_nota_mas_alta(datosAlumnos,notaMasAlta)
+    alumnoNotaMasBaja = buscar_alumno_nota_mas_baja(datosAlumnos, notaMasBaja)
     
-    print(f"La nota mas alta del curso es {notaMasAlta}")
-    print(f"La nota mas baja del curso es {notaMasBaja}")
+    print(Fore.CYAN + f"🏆 Alumno con mejor nota ({notaMasAlta}): {alumnoNotaMasAlta}")
+    print(Fore.RED + f"⚠️ Alumno con peor nota ({notaMasBaja}): {alumnoNotaMasBaja}")
 
 
+def buscar_alumno_nota_mas_alta(datos,notaAlta):
 
+# Buscar el primer alumno con la nota más alta
+    for alumno in datos:
+        if int(alumno["nota"]) == notaAlta:
+            alumnoMejor = alumno["nombre"]
+            return alumnoMejor
+
+def buscar_alumno_nota_mas_baja(datos,notaBaja):
+    for alumno in datos:
+        if int(alumno["nota"]) == notaBaja:
+            alumnoPeor = alumno["nombre"]
+            return alumnoPeor
+        
 
 #=======================Opcion MENU 5========================================
 # 5) Ordenar y mostrar
@@ -316,8 +327,8 @@ def generar_informe_resumen():
     cantidadTotalEstudiantes = len(datosAlumnos)
     promedioGeneral = promedio_del_curso("alumnos.csv")
     totalAprobados,totalDesaprobados = total_aprobados_desaprobados_sin_print()
-    mejorNota = max(datosAlumnos, key=lambda alumno: alumno['nota'])
-    peorNota = min(datosAlumnos, key=lambda alumno: alumno['nota'])
+    mejorNota = max(datosAlumnos, key=lambda alumno: int(alumno['nota']))
+    peorNota = min(datosAlumnos, key=lambda alumno: int(alumno['nota']))
     
     texto_informe = f"""INFORME FINAL DEL CURSO
     {'___'*30}

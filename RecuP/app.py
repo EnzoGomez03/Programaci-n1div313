@@ -17,7 +17,7 @@ def menu():
     
     
         #En caso de que el usario no elija una opcion del menu.
-        if opcion not in ["1","2","3","4","5","6","7"]:
+        if opcion not in ["1","2","3","4","5","6","7","8"]:
             print(Fore.RED +"===" * 20)
             print(Fore.BLACK +"\n ⚠️  Ingresa una opcion correcta del menu! \n")
             print(Fore.RED + "===" * 20)
@@ -29,9 +29,9 @@ def menu():
             vlOpcionArchivo = vl.validar_archivo_existe() #Valido al principio si el archivo existe o no
             fn.cargar_datos_estudiantes(vlOpcionArchivo)
             vlOpcionUno = True
-        elif opcion == "7":
+        elif opcion == "8":
             fn.salir()
-            break
+            ut.esperar_limpiar()
         elif vlOpcionUno:
             if opcion =="2":
                 fn.mostrar_listado_estudiantes()
@@ -43,7 +43,11 @@ def menu():
             elif opcion == "5":
                 fn.ordenar_mostrar()
             elif opcion == "6":
+                fn.filtrar_por_condición_de_estudiantes()
+                ut.esperar_limpiar()
+            elif opcion == "7":
                 fn.generar_informe_resumen()
+                ut.esperar_limpiar()
         else:
             print(Fore.RED +"===" * 20)
             print(Fore.BLACK +"\n ⚠️  Primero tenes que ingresar los datos de los Alumnos!\n")
