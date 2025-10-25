@@ -4,13 +4,28 @@ import colores as col
 
 class Personaje():
     
-    def __init__(self, x ,y , image): #x , y donde aparece el pj
+    def __init__(self, x ,y , animaciones): #x , y donde aparece el pj
         #Forma Pj
         self.flip = False
-        self.imagen = image
+        self.animacion = animaciones
+        #imagen de la animacion que se esta mostrando!
+        self.frame_index = 0
+        #Almacena la hora actual(en milisegundos desde que se inicio pygame)
+        self.update_time = pygame.time.get_ticks()
+        self.imagen = animaciones[self.frame_index]
         self.forma = self.imagen.get_rect(topleft=(x, y))
         self.velocidad = 3
 
+    def update(self):
+        cooldown_animacion = 500
+        self.imagen = self.animacion[self.frame_index]
+        if pygame.time.get_ticks() - self.update_time >= cooldown_animacion:
+            self.frame_index += 1
+            self.update_time = pygame.time.get_ticks()
+        if self.frame_index >= len(self.animacion):
+            self.frame_index = 0
+        
+        
     #dibujamos Al pj
     def dibujar(self,interfaz):
         imagenFlip = pygame.transform.flip(self.imagen,self.flip,False)
