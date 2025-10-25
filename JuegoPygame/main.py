@@ -11,12 +11,22 @@ ventana = pygame.display.set_mode((constantes.ANCHO_VENTANA,constantes.ALTO_VENT
 #Nombre de la pagina
 pygame.display.set_caption("Proyecto")
 
+
+animaciones = []
+for i in range(7):
+    pass
+
+
 #Aca va el pj principal
-player_image = pygame.image.load("JuegoPygame//assets//imagenes//characters//player//mov11.png") 
+player_image = pygame.image.load("JuegoPygame//assets//imagenes//characters//player//mov2.png")
+
+# Recortamos solo el área visible
+rect_recorte = player_image.get_bounding_rect()
+player_image = player_image.subsurface(rect_recorte).copy()
 player_image = pygame.transform.scale(player_image, (player_image.get_width() * constantes.SCALA_PERSONAJE,player_image.get_height()* constantes.SCALA_PERSONAJE))
 
 #                   x , y
-jugador = Personaje(30,30, player_image)
+jugador = Personaje(10,10, player_image)
 
 #controlar los fps
 reloj = pygame.time.Clock()
