@@ -18,7 +18,7 @@ class Personaje():
         self.velocidad = 3
 
     def update(self):
-        cooldown_animacion = 100
+        cooldown_animacion = 1000
         self.imagen = self.animacion[self.frame_index]
         if pygame.time.get_ticks() - self.update_time >= cooldown_animacion:
             self.frame_index += 1

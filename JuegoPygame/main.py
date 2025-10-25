@@ -36,7 +36,7 @@ while run:
     #va a 60fps
     reloj.tick(constantes.FPS)
     #LIMPIAR PANTALLA CADA FRAME
-    ventana.fill(col.VERDE)  # o cualquier color de fondo
+    ventana.fill(col.BLANCO)  # o cualquier color de fondo
 
     
     listaEventos = pygame.event.get()
