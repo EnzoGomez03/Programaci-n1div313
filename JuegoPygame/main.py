@@ -24,7 +24,7 @@ for numeroImagen in range(7):
 
 
 
-#                   x , y, listaDeImagenes
+#                   x , y, listaDeImagenesaa
 jugador = Personaje(10,10, animaciones)
 
 #controlar los fps

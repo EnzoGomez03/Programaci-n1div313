@@ -4,9 +4,10 @@ import colores as col
 
 class Personaje():
     
-    def __init__(self, x ,y , animaciones): #x , y donde aparece el pj
+    def __init__(self, x ,y , animaciones): #x , y donde aparece el pj, animaciones es una lista de imagenes
         #Forma Pj
         self.flip = False
+        #le cargo a self.animacion el parametro animaciones
         self.animacion = animaciones
         #imagen de la animacion que se esta mostrando!
         self.frame_index = 0
@@ -17,7 +18,7 @@ class Personaje():
         self.velocidad = 3
 
     def update(self):
-        cooldown_animacion = 500
+        cooldown_animacion = 100
         self.imagen = self.animacion[self.frame_index]
         if pygame.time.get_ticks() - self.update_time >= cooldown_animacion:
             self.frame_index += 1
