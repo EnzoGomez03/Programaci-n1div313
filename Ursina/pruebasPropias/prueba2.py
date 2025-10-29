@@ -30,10 +30,18 @@ plat2 = Entity(
     collider='box')
 
 arbol= Entity(
-    model='assets/Tree_1',
-    position= (9,1)
+    model='assets/pino.glb',
+    position= (10,0,20),
+    scale=(4),
+    collider='mesh' #Esta colicion "mesh" hace el contorno del objeto
 )
 
+otroArbol = Entity(
+    model='assets/Tree.glb',
+    position=(18,0,30),
+    scale=(4),
+    collider='mesh'
+)
 Entity(
     #           x,y,z(profundidad)
     scale= Vec3(3,6,10),
