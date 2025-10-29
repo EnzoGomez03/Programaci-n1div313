@@ -1,14 +1,20 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
+import classPrueba2  as cl
 
 app = Ursina()
 Sky()
+
+terreno = '../pruebas/assets/Terrain004_1K_Color.png'
+arbolPino = 'assets/pino.glb'
+arbolNormal = 'assets/Tree.glb'
+muro = 'assets/muro.glb'
 
 Entity(
     #Esto es para el escenario.
     model='plane',
     collider= 'mesh',
-    texture= '../pruebas/assets/Terrain004_1K_Color.png',
+    texture= terreno,
     scale= (100,1,100)
     
 )
@@ -29,19 +35,49 @@ plat2 = Entity(
     scale=(4,1,4), 
     collider='box')
 
-arbol= Entity(
-    model='assets/pino.glb',
-    position= (10,0,20),
-    scale=(4),
-    collider='mesh' #Esta colicion "mesh" hace el contorno del objeto
-)
+#Arboles con Clases
+arbol_pino = cl.Arbol(modelo=arbolPino,position=(1,0,1),scale=(2))
+arbol_normal = cl.Arbol(modelo=arbolNormal,position=(10,1,10),scale=(4))
 
-otroArbol = Entity(
-    model='assets/Tree.glb',
-    position=(18,0,30),
-    scale=(4),
+#Arboles Sin clases
+# arbol_pino= Entity(
+#     model= arbolPino,
+#     position= (1,0,1),
+#     scale=(2),
+#     collider='mesh' #Esta colicion "mesh" hace el contorno del objeto
+# )
+
+# arbol_normal = Entity(
+#     model= arbolNormal,
+#     position=(5,1,5),
+#     scale=(4),
+#     collider='mesh'
+# )
+castillo = Entity(
+    model = 'assets/castillo.glb',
+    position= (20,0,30),
+    scale= (20),
     collider='mesh'
 )
+
+
+# for i in range(10):
+#     Entity(
+#         model= muro,
+#         position= (i * 2, 0 , 0 ),
+#         scale= (2),
+#         collider= 'box'
+#     )
+
+for i in range(10):
+    Entity(
+        model= 'assets/madera.glb',
+        position= (i * 8, 0 , 0 ),
+        scale= (2),
+        collider= 'box'
+    )
+
+
 Entity(
     #           x,y,z(profundidad)
     scale= Vec3(3,6,10),
