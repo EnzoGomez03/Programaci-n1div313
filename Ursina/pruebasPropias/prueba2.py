@@ -53,6 +53,7 @@ arbol_normal = cl.Arbol(modelo=arbolNormal,position=(10,1,10),scale=(4))
 #     scale=(4),
 #     collider='mesh'
 # )
+
 castillo = Entity(
     model = 'assets/castillo.glb',
     position= (20,0,30),

@@ -2,8 +2,9 @@ import pygame
 import constantes as cs
 import colores as col
 
+
 class Personaje():
-    
+
     def __init__(self, x ,y , animaciones): #x , y donde aparece el pj, animaciones es una lista de imagenes
         #Forma Pj
         self.flip = False

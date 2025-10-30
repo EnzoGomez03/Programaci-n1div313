@@ -1,6 +1,7 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 import math
+import classPrueba2 as cl
 
 app = Ursina()
 
@@ -29,21 +30,26 @@ ground = Entity(
 # ------------------------------
 #   ELEMENTOS DECORATIVOS
 # ------------------------------
-for i in range(10):
-    Entity(
-        model='sphere',
-        color=color.rgb(100, 100, 100),
-        scale=Vec3(2, 1, 2),
-        position=(random.uniform(-40, 40), 0.5, random.uniform(-40, 40))
-    )
 
-for i in range(7):
-    Entity(
-        model='cube',
-        color=color.rgb(40, 180, 60),
-        position=(random.uniform(-40, 40), 1, random.uniform(-40, 40)),
-        scale=(1, 4, 1)
-    )
+
+
+for i in range(10):
+    cl.Arbol(modelo='assets/pino.glb',position=(random.uniform(-40, 40), 0.5, random.uniform(-40, 40)),scale=(2))
+    cl.Arbol(modelo='assets/Tree.glb',position=(random.uniform(-40, 40), 0.5, random.uniform(-40, 40)),scale=(2))
+    # Entity(
+    #     model='sphere',
+    #     color=color.rgb(100, 100, 100),
+    #     scale=Vec3(2, 1, 2),
+    #     position=(random.uniform(-40, 40), 0.5, random.uniform(-40, 40))
+    # )
+
+# for i in range(7):
+#     Entity(
+#         model='cube',
+#         color=color.rgb(40, 180, 60),
+#         position=(random.uniform(-40, 40), 1, random.uniform(-40, 40)),
+#         scale=(1, 4, 1)
+#     )
 
 # ------------------------------
 #   JUGADOR
