@@ -9,11 +9,11 @@ Sky()
 # ------------------------------
 #   CONFIGURACIÓN
 # ------------------------------
-cantidad_bosques = 3        # cuántas zonas densas querés
-arboles_por_bosque = 10     # árboles en cada zona
-radio_bosque = 15           # tamaño de cada zona
+cantidad_bosques = 10     # cuántas zonas densas se hacen
+arboles_por_bosque = 20     # árboles en cada zona
+radio_bosque = 10          # tamaño de cada zona
 espacio_minimo = 5           # distancia mínima entre árboles
-area_total = 80             # tamaño del mapa (-area_total a +area_total)
+area_total = 30             # tamaño del mapa (-area_total a +area_total)
 
 # Lista global para guardar posiciones ya usadas
 posiciones_usadas = []
